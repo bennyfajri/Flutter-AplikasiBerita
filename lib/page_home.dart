@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class PageHome extends StatefulWidget {
-  final VoidCallback signOut;
-  PageHome(this.signOut);
+  PageHome();
 
   @override
   _PageHomeState createState() => _PageHomeState();

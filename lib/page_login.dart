@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tugas_akhir_flutter/list_anime/page_list_anime.dart';
 import 'package:tugas_akhir_flutter/page_home.dart';
 import 'package:tugas_akhir_flutter/page_register.dart';
 
@@ -13,6 +14,9 @@ class PageLogin extends StatefulWidget {
 enum statusLogin { signIn, notSignIn }
 
 class _PageLoginState extends State<PageLogin> {
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+
   statusLogin _loginStatus = statusLogin.notSignIn;
   final _keyForm = GlobalKey<FormState>();
   String nUsername, nPassword;
@@ -27,15 +31,9 @@ class _PageLoginState extends State<PageLogin> {
 
   //mengirim request dan menanggapinya
   submitDataLogin() async {
-    Map<String, String> header = {
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Charset': 'utf-8'
-    };
     final msg = {'username': nUsername, 'password': nPassword};
-
-    var url = "http://192.168.42.18/flutter_TA/login.php";
-    final responsData =
-        await http.post(Uri.parse(url), body: jsonEncode(msg), headers: header);
+    var url = "https://drsync69.000webhostapp.com/flutter_TA/login.php";
+    final responsData = await http.post(Uri.parse(url), body: msg);
 
     final data = jsonDecode(responsData.body);
     int value = data['value'];
@@ -144,6 +142,7 @@ jika sudah set valuenya
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
+                    controller: username,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please Input Username';
@@ -162,6 +161,7 @@ jika sudah set valuenya
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: TextFormField(
+                    controller: password,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please input password';
@@ -211,7 +211,7 @@ jika sudah set valuenya
 
         break;
       case statusLogin.signIn:
-        return PageHome(SignOut());
+        return ListAnime();
         break;
     }
   }

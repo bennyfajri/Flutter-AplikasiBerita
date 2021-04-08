@@ -40,22 +40,16 @@ class _PageRegisterState extends State<PageRegister> {
 
   //submit data register
   submitDataRegister() async {
-    Map<String, String> header = {
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Charset': 'utf-8'
+    final msg = {
+      "username": nUsername,
+      "full_name": nFullName,
+      "email": nEmail,
+      "password": nPassword,
+      "sex": sex,
+      "alamat": nAlamat
     };
-
-    var url = "http://192.168.42.18/flutter_TA/register.php";
-    final responseData = await http.post(Uri.parse(url),
-        body: {
-          "username": nUsername,
-          "full_name": nFullName,
-          "email": nEmail,
-          "password": nPassword,
-          "sex": sex,
-          "alamat": nAlamat
-        },
-        headers: header);
+    var url = "https://drsync69.000webhostapp.com/flutter_TA/register.php";
+    final responseData = await http.post(Uri.parse(url), body: msg);
     final data = jsonDecode(responseData.body);
     int value = data['value'];
     String pesan = data['message'];
@@ -63,7 +57,8 @@ class _PageRegisterState extends State<PageRegister> {
     //cek value 1 atau 0
     if (value == 1) {
       setState(() {
-        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PageLogin()));
       });
     } else if (value == 2) {
       print(pesan);
