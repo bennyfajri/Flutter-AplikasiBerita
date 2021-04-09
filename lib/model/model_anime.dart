@@ -11,6 +11,42 @@ String modelAnimeToJson(ModelAnime data) => json.encode(data.toJson());
 
 class ModelAnime {
   ModelAnime({
+    this.requestHash,
+    this.requestCached,
+    this.requestCacheExpiry,
+    this.malUrl,
+    this.itemCount,
+    this.anime,
+  });
+
+  String requestHash;
+  bool requestCached;
+  int requestCacheExpiry;
+  MalUrl malUrl;
+  int itemCount;
+  List<Anime> anime;
+
+  factory ModelAnime.fromJson(Map<String, dynamic> json) => ModelAnime(
+        requestHash: json["request_hash"],
+        requestCached: json["request_cached"],
+        requestCacheExpiry: json["request_cache_expiry"],
+        malUrl: MalUrl.fromJson(json["mal_url"]),
+        itemCount: json["item_count"],
+        anime: List<Anime>.from(json["anime"].map((x) => Anime.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "request_hash": requestHash,
+        "request_cached": requestCached,
+        "request_cache_expiry": requestCacheExpiry,
+        "mal_url": malUrl.toJson(),
+        "item_count": itemCount,
+        "anime": List<dynamic>.from(anime.map((x) => x.toJson())),
+      };
+}
+
+class Anime {
+  Anime({
     this.malId,
     this.url,
     this.title,
@@ -22,9 +58,7 @@ class ModelAnime {
     this.members,
     this.genres,
     this.source,
-    this.producers,
     this.score,
-    this.licensors,
     this.r18,
     this.kids,
   });
@@ -38,15 +72,13 @@ class ModelAnime {
   String airingStart;
   int episodes;
   int members;
-  List<Genre> genres;
+  List<MalUrl> genres;
   String source;
-  List<Genre> producers;
   double score;
-  List<String> licensors;
   bool r18;
   bool kids;
 
-  factory ModelAnime.fromJson(Map<String, dynamic> json) => ModelAnime(
+  factory Anime.fromJson(Map<String, dynamic> json) => Anime(
         malId: json["mal_id"],
         url: json["url"],
         title: json["title"],
@@ -56,12 +88,10 @@ class ModelAnime {
         airingStart: json["airing_start"],
         episodes: json["episodes"],
         members: json["members"],
-        genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+        genres:
+            List<MalUrl>.from(json["genres"].map((x) => MalUrl.fromJson(x))),
         source: json["source"],
-        producers:
-            List<Genre>.from(json["producers"].map((x) => Genre.fromJson(x))),
         score: json["score"].toDouble(),
-        licensors: List<String>.from(json["licensors"].map((x) => x)),
         r18: json["r18"],
         kids: json["kids"],
       );
@@ -78,16 +108,14 @@ class ModelAnime {
         "members": members,
         "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
         "source": source,
-        "producers": List<dynamic>.from(producers.map((x) => x.toJson())),
         "score": score,
-        "licensors": List<dynamic>.from(licensors.map((x) => x)),
         "r18": r18,
         "kids": kids,
       };
 }
 
-class Genre {
-  Genre({
+class MalUrl {
+  MalUrl({
     this.malId,
     this.type,
     this.name,
@@ -99,7 +127,7 @@ class Genre {
   String name;
   String url;
 
-  factory Genre.fromJson(Map<String, dynamic> json) => Genre(
+  factory MalUrl.fromJson(Map<String, dynamic> json) => MalUrl(
         malId: json["mal_id"],
         type: json["type"],
         name: json["name"],

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir_flutter/main.dart';
-import 'package:tugas_akhir_flutter/list_user/page_list_user.dart';
 import 'package:tugas_akhir_flutter/page_login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,8 +32,4 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => PageLogin()));
   }
-  // void onDone() {
-  //   Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(builder: (context) => PageListUser()));
-  // }
 }
