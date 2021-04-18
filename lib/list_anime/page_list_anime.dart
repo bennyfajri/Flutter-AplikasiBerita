@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_akhir_flutter/list_anime/page_detail_anime.dart';
+import 'package:tugas_akhir_flutter/list_anime/page_detail_user.dart';
 import 'package:tugas_akhir_flutter/model/model_anime.dart';
 import 'package:http/http.dart' as http;
 
@@ -60,18 +61,20 @@ class _ListAnimeState extends State<ListAnime> {
   }
 
   //mengambil nilai dari shared preferences
+  //
   String username = "";
   String fullname = "";
   getDataPref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       username = sharedPreferences.getString("username");
-      fullname = sharedPreferences.getString("fullname");
+      fullname = sharedPreferences.getString("full_name");
     });
   }
 
-  detailUser() async {
-    Navigator.push(context, detailUser());
+  detailUser() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DetailUser()));
   }
 
   @override
@@ -110,9 +113,7 @@ class _ListAnimeState extends State<ListAnime> {
             future: getData(),
             builder: (context, listData) {
               if (listData.hasData) {
-                return
-                    //Center(child:Text(snapshot.data.items[0].id) ,);
-                    ListView.builder(
+                return ListView.builder(
                   itemCount: listData.data.anime.length,
                   itemBuilder: (context, int i) {
                     return InkWell(

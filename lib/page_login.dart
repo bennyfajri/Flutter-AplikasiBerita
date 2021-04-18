@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_akhir_flutter/list_anime/page_list_anime.dart';
-import 'package:tugas_akhir_flutter/page_home.dart';
 import 'package:tugas_akhir_flutter/page_register.dart';
 
 class PageLogin extends StatefulWidget {
@@ -32,13 +31,12 @@ class _PageLoginState extends State<PageLogin> {
   //mengirim request dan menanggapinya
   submitDataLogin() async {
     final msg = {'username': nUsername, 'password': nPassword};
-    var url = "https://drsync69.000webhostapp.com/flutter_TA/login.php";
+    var url = "http://192.168.42.246/flutter_TA/login.php";
     final responsData = await http.post(Uri.parse(url), body: msg);
 
     final data = jsonDecode(responsData.body);
     int value = data['value'];
     String pesan = data['message'];
-    print(data);
 
     //get data respon
     String dataUsername = data['username'];
@@ -48,6 +46,7 @@ class _PageLoginState extends State<PageLogin> {
     String dataFullname = data['full_name'];
     String dataTanggalDaftar = data['tgl_daftar'];
     String dataIdUser = data['id_user'];
+    print(data);
 
     // cek value 1 atau 0
     if (value == 1) {
@@ -72,8 +71,8 @@ class _PageLoginState extends State<PageLogin> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       sharedPreferences.setInt("value", value);
-      sharedPreferences.setString("username", dUsername);
       sharedPreferences.setString("id_user", dIdUser);
+      sharedPreferences.setString("username", dUsername);
       sharedPreferences.setString("email", dEmail);
       sharedPreferences.setString("alamat", dAlamat);
       sharedPreferences.setString("sex", dSex);
@@ -122,22 +121,20 @@ jika sudah set valuenya
             key: _keyForm,
             child: ListView(
               children: <Widget>[
+                SizedBox(
+                  height: 40.0,
+                ),
                 Center(
                   child: Text(
                     'Login Form',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 26.0,
-                        color: Colors.brown),
+                        color: Colors.black),
                   ),
                 ),
                 SizedBox(
-                  height: 20.0,
-                ),
-                Image.asset(
-                  'assets/splash.png',
-                  height: 100.0,
-                  width: 100.0,
+                  height: 40.0,
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),

@@ -48,7 +48,7 @@ class _PageRegisterState extends State<PageRegister> {
       "sex": sex,
       "alamat": nAlamat
     };
-    var url = "https://drsync69.000webhostapp.com/flutter_TA/register.php";
+    var url = "http://192.168.42.246/flutter_TA/register.php";
     final responseData = await http.post(Uri.parse(url), body: msg);
     final data = jsonDecode(responseData.body);
     int value = data['value'];
@@ -74,21 +74,23 @@ class _PageRegisterState extends State<PageRegister> {
           key: _keyForm,
           child: ListView(
             children: <Widget>[
-              Text(
-                '',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26.0,
-                    color: Colors.brown),
-              ),
               SizedBox(
-                height: 20.0,
+                height: 40.0,
               ),
-              Image.asset(
-                'assets/splash.png',
-                height: 100.0,
-                width: 100.0,
+              Center(
+                child: Text(
+                  'Form Register',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26.0,
+                      color: Colors.black),
+                ),
               ),
+
+              SizedBox(
+                height: 40.0,
+              ),
+
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: TextFormField(

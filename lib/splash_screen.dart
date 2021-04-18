@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir_flutter/list_anime/page_list_anime.dart';
 import 'package:tugas_akhir_flutter/page_login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,10 +18,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Image.asset("assets/splash.png"),
-      ),
+    return MaterialApp(
+      home: Scaffold(
+          backgroundColor: Colors.lightBlue,
+          body: Center(
+            child: Image.asset("assets/splash.png"),
+          )),
+      debugShowCheckedModeBanner: false,
     );
   }
 

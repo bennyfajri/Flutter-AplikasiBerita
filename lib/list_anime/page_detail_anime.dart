@@ -9,7 +9,7 @@ class DetailListFilm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // title: model.,
+          // title: Text(),
           ),
     );
   }
